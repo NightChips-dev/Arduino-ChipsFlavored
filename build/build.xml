@@ -147,7 +147,17 @@
   </target>
 
   <target name="dist" depends="revision-check" description="Build Arduino for distribution.">
-    <input message="Enter version number:" addproperty="version" defaultvalue="${revision}"/>
+    <trycatch>
+      <try>
+        <input message="Enter version number:" addproperty="version" defaultvalue="${revision}"/>
+      </try>
+        
+      <catch>
+        <property name="versiom" value="${revision}" />
+      </catch>
+    
+    </trycatch>
+    
     <condition property="full-version" value="${version}-${platform}">
       <not>
         <equals arg1="${portable}" arg2="true"/>
